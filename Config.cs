@@ -22,7 +22,7 @@ namespace identity4Demo {
         ClientId = "pobx",
         AllowedGrantTypes = GrantTypes.ClientCredentials,
         ClientSecrets = {
-        new Secret ("secret1234".Sha256 ())
+        new Secret ("secret1234".Sha256())
         },
         AllowedScopes = { "api1" }
         }
