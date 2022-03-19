@@ -1,7 +1,10 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+﻿using System;
+using IdentityServer4;
+// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +38,12 @@ namespace identity4Demo
 
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
+
+            services.AddAuthentication(IdentityServerConstants.DefaultCookieAuthenticationScheme)
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+              options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+              options.SlidingExpiration = true;
+            });
         }
 
         public void Configure(IApplicationBuilder app)
