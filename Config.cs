@@ -52,7 +52,7 @@ namespace identity4Demo {
         ClientSecrets = {
         new Secret ("secret1234".Sha256 ()),
         },
-        AllowedScopes = { "level1", "offline_access" },
+        AllowedScopes = { "level1", "level2", "level3", "offline_access" },
         AllowOfflineAccess = true,
         AccessTokenLifetime = 300,
         UpdateAccessTokenClaimsOnRefresh = true,
