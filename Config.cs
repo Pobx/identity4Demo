@@ -3,6 +3,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 using System.Collections.Generic;
+using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
 
@@ -30,13 +31,19 @@ namespace identity4Demo {
         new () {
         Name = "ro.client.token",
         ApiSecrets = { new Secret ("pobx".Sha256 ()) },
-        Scopes = { "level1", "level2" },
+        Scopes = {
+        "level1",
+        "level2",
+        IdentityServerConstants.StandardScopes.OpenId,
+        IdentityServerConstants.StandardScopes.Profile,
+        },
         // Scopes = { "level2" },
         }
       };
     public static IEnumerable<IdentityResource> IdentityResources =>
       new IdentityResource[] {
-        new IdentityResources.OpenId ()
+        new IdentityResources.OpenId (),
+        new IdentityResources.Profile()
       };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -78,7 +85,14 @@ namespace identity4Demo {
         ClientSecrets = {
         new Secret ("secret1234".Sha256 ()),
         },
-        AllowedScopes = { "level1", "level2", "level3", "offline_access" },
+        AllowedScopes = {
+        "level1",
+        "level2",
+        "level3",
+        "offline_access",
+        IdentityServerConstants.StandardScopes.OpenId,
+        IdentityServerConstants.StandardScopes.Profile,
+        },
         AllowOfflineAccess = true,
         AccessTokenLifetime = 300,
         UpdateAccessTokenClaimsOnRefresh = true,
