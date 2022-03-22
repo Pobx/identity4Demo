@@ -31,6 +31,7 @@ namespace identity4Demo {
         Name = "ro.client.token",
         ApiSecrets = { new Secret ("pobx".Sha256 ()) },
         Scopes = { "level1", "level2" },
+        // Scopes = { "level2" },
         }
       };
     public static IEnumerable<IdentityResource> IdentityResources =>
