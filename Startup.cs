@@ -39,8 +39,8 @@ namespace identity4Demo
             // not recommended for production - you need to store your key material somewhere secure
             builder.AddDeveloperSigningCredential();
 
-            services.AddAuthentication(IdentityServerConstants.DefaultCookieAuthenticationScheme)
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => {
+            services.AddAuthentication()
+            .AddCookie(options => {
               options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
               options.SlidingExpiration = true;
             });
