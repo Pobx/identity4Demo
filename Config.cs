@@ -24,6 +24,15 @@ namespace identity4Demo {
         }
       };
     }
+
+    public static IEnumerable<ApiResource> ApiResources =>
+      new ApiResource[] {
+        new () {
+        Name = "ro.client.token",
+        ApiSecrets = { new Secret ("pobx".Sha256 ()) },
+        Scopes = { "level1", "level2" },
+        }
+      };
     public static IEnumerable<IdentityResource> IdentityResources =>
       new IdentityResource[] {
         new IdentityResources.OpenId ()
@@ -46,8 +55,9 @@ namespace identity4Demo {
         },
         AllowedScopes = { "level1" }
         },
+
         new () {
-        ClientId = "ro.client",
+        ClientId = "ro.client.jwt",
         AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
         ClientSecrets = {
         new Secret ("secret1234".Sha256 ()),
@@ -59,7 +69,24 @@ namespace identity4Demo {
         AbsoluteRefreshTokenLifetime = 600,
         SlidingRefreshTokenLifetime = 420,
         RefreshTokenUsage = TokenUsage.OneTimeOnly,
-        }
+        AccessTokenType = AccessTokenType.Jwt
+        },
+        new () {
+        ClientId = "ro.client.token",
+        AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+        ClientSecrets = {
+        new Secret ("secret1234".Sha256 ()),
+        },
+        AllowedScopes = { "level1", "level2", "level3", "offline_access" },
+        AllowOfflineAccess = true,
+        AccessTokenLifetime = 300,
+        UpdateAccessTokenClaimsOnRefresh = true,
+        AbsoluteRefreshTokenLifetime = 600,
+        SlidingRefreshTokenLifetime = 420,
+        RefreshTokenUsage = TokenUsage.OneTimeOnly,
+        AccessTokenType = AccessTokenType.Reference
+        },
+
       };
   }
 }
