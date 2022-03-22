@@ -34,6 +34,7 @@ namespace identity4Demo
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
+                .AddInMemoryApiResources(Config.ApiResources)
                 .AddTestUsers(Config.GetUsers());
 
             // not recommended for production - you need to store your key material somewhere secure
